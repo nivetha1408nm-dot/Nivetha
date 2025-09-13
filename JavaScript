@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Concepts Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4e6fff;
+            --secondary: #ff6b6b;
+            --dark: #2d3436;
+            --light: #f9f9f9;
+            --gray: #dfe6e9;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 150px 0 100px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #636e72;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #3a5bff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Concepts Section */
+        .concepts {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #636e72;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .concepts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .concept-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: var(--transition);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .concept-icon {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(78, 111, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary);
+            font-size: 28px;
+        }
+
+        .concept-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .concept-card p {
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* Code Examples */
+        .code-examples {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+
+        .example {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .example-header {
+            background-color: var(--dark);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .example-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .example-content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .code-container {
+            flex: 1;
+            min-width: 300px;
+            background-color: #2d3436;
+            color: #f9f9f9;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+
+        .demo-container {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .code-example {
+            margin-bottom: 15px;
+        }
+
+        .comment {
+            color: #636e72;
+        }
+
+        .keyword {
+            color: #ff6b6b;
+        }
+
+        .function {
+            color: #4e6fff;
+        }
+
+        .string {
+            color: #10b981;
+        }
+
+        /* Interactive Demo */
+        .interactive-demo {
+            padding: 30px;
+            background-color: rgba(78, 111, 255, 0.05);
+            border-radius: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .demo-output {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 70px 0 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #b2bec3;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #b2bec3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links li {
+                margin: 15px 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .example-content {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <i class="fab fa-js"></i> JavaScript Concepts
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Concepts</a></li>
+                    <li><a href="#">Examples</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+                <div class="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>JavaScript Concepts Explained</h1>
+            <p>Learn key JavaScript concepts with interactive examples and code snippets. Understand how JavaScript works behind the scenes.</p>
+            <a href="#concepts" class="btn">Explore Concepts</a>
+        </div>
+    </section>
+
+    <!-- Concepts Section -->
+    <section class="concepts" id="concepts">
+        <div class="container">
+            <div class="section-title">
+                <h2>Key JavaScript Concepts</h2>
+                <p>Understanding these concepts is essential for mastering JavaScript</p>
+            </div>
+            <div class="concepts-grid">
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Variables & Data Types</h3>
+                    <p>Learn about var, let, const and different data types in JavaScript including primitives and objects.</p>
+                    <button class="btn">See Example</button>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-code-branch"></i>
+                    </div>
+                    <h3>Functions & Scope</h3>
+                    <p>Understand function declarations, expressions, arrow functions, and scope chain in JavaScript.</p>
+                    <button class="btn">See Example</button>
+                </div>
+                <div class="concept-card">
+                    <div class="concept-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Asynchronous JS</h3>
+                    <p>Explore callbacks, promises, async/await and the event loop for handling asynchronous operations.</p>
+                    <button class="btn">See Example</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code Examples -->
+    <section class="code-examples">
+        <div class="container">
+            <div class="section-title">
+                <h2>Code Examples</h2>
+                <p>See JavaScript concepts in action with interactive examples</p>
+            </div>
+            
+            <!-- Example 1 -->
+            <div class="example">
+                <div class="example-header">
+                    <div class="example-title">Variables and Data Types</div>
+                    <button class="btn">Run Code</button>
+                </div>
+                <div class="example-content">
+                    <div class="code-container">
+                        <div class="code-example">
+                            <span class="comment">// Variable declarations</span><br>
+                            <span class="keyword">var</span> oldVariable = <span class="string">"I'm a var"</span>;<br>
+                            <span class="keyword">let</span> changeable = <span class="string">"I can change"</span>;<br>
+                            <span class="keyword">const</span> constant = <span class="string">"I cannot change"</span>;<br><br>
+                            
+                            <span class="comment">// Data types</span><br>
+                            <span class="keyword">let</span> number = 42;<br>
+                            <span class="keyword">let</span> text = <span class="string">"Hello World"</span>;<br>
+                            <span class="keyword">let</span> isTrue = <span class="keyword">true</span>;<br>
+                            <span class="keyword">let</span> nothing = <span class="keyword">null</span>;<br>
+                            <span class="keyword">let</span> notDefined;<br>
+                            <span class="keyword">let</span> person = {<br>
+                            &nbsp;&nbsp;name: <span class="string">"John"</span>,<br>
+                            &nbsp;&nbsp;age: 30<br>
+                            };
+                        </div>
+                    </div>
+                    <div class="demo-container">
+                        <div class="interactive-demo">
+                            <h3>Variable Demonstration</h3>
+                            <div class="demo-output">
+                                <p>Click "Run Code" to see the output</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Example 2 -->
+            <div class="example">
+                <div class="example-header">
+                    <div class="example-title">Functions and Scope</div>
+                    <button class="btn">Run Code</button>
+                </div>
+                <div class="example-content">
+                    <div class="code-container">
+                        <div class="code-example">
+                            <span class="comment">// Function declaration</span><br>
+                            <span class="keyword">function</span> <span class="function">greet</span>(name) {<br>
+                            &nbsp;&nbsp;<span class="keyword">return</span> <span class="string">`Hello, ${name}!`</span>;<br>
+                            }<br><br>
+                            
+                            <span class="comment">// Function expression</span><br>
+                            <span class="keyword">const</span> square = <span class="keyword">function</span>(num) {<br>
+                            &nbsp;&nbsp;<span class="keyword">return</span> num * num;<br>
+                            };<br><br>
+                            
+                            <span class="comment">// Arrow function</span><br>
+                            <span class="keyword">const</span> add = (a, b) => a + b;<br><br>
+                            
+                            <span class="comment">// Scope example</span><br>
+                            <span class="keyword">let</span> globalVar = <span class="string">"I'm global"</span>;<br><br>
+                            
+                            <span class="keyword">function</span> <span class="function">scopeExample</span>() {<br>
+                            &nbsp;&nbsp;<span class="keyword">let</span> localVar = <span class="string">"I'm local"</span>;<br>
+                            &nbsp;&nbsp;console.log(globalVar); <span class="comment">// Accessible</span><br>
+                            &nbsp;&nbsp;console.log(localVar); &nbsp;<span class="comment">// Accessible</span><br>
+                            }<br>
+                        </div>
+                    </div>
+                    <div class="demo-container">
+                        <div class="interactive-demo">
+                            <h3>Function Demonstration</h3>
+                            <div class="demo-output">
+                                <p>Click "Run Code" to see the output</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>JavaScript Concepts</h3>
+                    <p>Learn JavaScript fundamentals with interactive examples and clear explanations.</p>
+                </div>
+                <div class
